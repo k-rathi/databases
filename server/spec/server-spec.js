@@ -70,34 +70,15 @@ describe('Persistent Node Chat Server', function() {
 
   it('Should output all messages from the DB', function(done) {
     // // Let's insert a message into the db
-    //    var queryString = "INSERT INTO messages (userId, roomId, text) VALUES(?, ? , ?)";
-    //    var queryArgs = [100, 100, 'Men like you can never change!'];
+       var queryString = "INSERT INTO messages (userId, roomId, text) VALUES(?, ? , ?)";
+       var queryArgs = [100, 100, 'Men like you can never change!'];
     // // TODO - The exact query string and query args to use
     // // here depend on the schema you design, so I'll leave
     // // them up to you. */
 
-    // dbConnection.query(queryString, queryArgs, function(err) {
-    //   if (err) { throw err; }
-    var req = {body: {
-      username: 'Bob',
-      roomname: 'main',
-      message: 'Men like you can never change!'
-    }};
-      db.connection.query('SELECT userId FROM users WHERE username = ?', [req.body.username], function(error, rows, fields) {
-        console.log('rows from username check', rows[0].userId);
-        db.connection.query('INSERT INTO roomname (roomname) VALUES (?)', [req.body.roomname], function(error) {
-          console.log('inserted roomname succesfully');
-          db.connection.query('SELECT roomId FROM roomname WHERE roomname = ?', [req.body.roomname], function(error, newRows, newFields) {
-            console.log('rows from roomId check', newRows);
-            db.connection.query('INSERT INTO messages (userId, roomId, text) VALUES(?, ?, ?)',
-            [rows[0].userId, newRows[0].roomId, req.body.message], function(err) { 
-              console.log('imhere'); 
-              res.writeHead(201);
-              res.end();
-            });
-          });
-        });
-      });
+    dbConnection.query(queryString, queryArgs, function(err) {
+      if (err) { throw err; }
+
 
 
       // Now query the Node chat server and see if it returns
